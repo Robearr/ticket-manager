@@ -1,4 +1,5 @@
-import { CSSProperties, useContext } from "react";
+import { Box } from "@mui/system";
+import { useContext } from "react";
 import { useParams } from "react-router";
 import { LoadingContext } from "../providers/LoadingProvider";
 
@@ -19,17 +20,9 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
   };
 
   return (
-    <div>
-      <iframe src={siteMap[siteName]} style={frameStyle} onLoad={() => setLoading(false)}></iframe>
-    </div>
+    <Box sx={{ width: '100vw', height: '97vh', pr: 2 }}>
+      <iframe src={siteMap[siteName]} onLoad={() => setLoading(false)} style={{ width: '100%', height: '100%' }}></iframe>
+    </Box>
   );
 };
 
-const frameStyle: CSSProperties = {
-  position: 'absolute',
-  width: '90%',
-  height: '90%',
-  margin: 0,
-  padding: 0,
-  overflow: 'hidden'
-}
