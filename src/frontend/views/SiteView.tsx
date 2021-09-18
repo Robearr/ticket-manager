@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import { useParams } from "react-router";
@@ -10,7 +11,7 @@ interface SiteViewParams {
 }
 
 export const SiteView: React.FC<SiteViewProps> = ({}) => {
-  const { setLoading } = useContext(LoadingContext);
+  const { isLoading, setLoading } = useContext(LoadingContext);
   const { siteName } = useParams<SiteViewParams>();
 
   const siteMap: Record<string, string> = {
@@ -20,8 +21,12 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
   };
 
   return (
-    <Box sx={{ width: '100vw', height: '97vh', pr: 2 }}>
-      <iframe src={siteMap[siteName]} onLoad={() => setLoading(false)} style={{ width: '100%', height: '100%' }}></iframe>
+    <Box sx={{width: '100vw', height: '97vh', pr: 2}} style={isLoading ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : {}}>
+      <iframe src={siteMap[siteName]} onLoad={() => setLoading(false)} style={{ width: '100%', height: '100%', display: isLoading ? 'none' : 'block' }}></iframe>
+      {isLoading ?
+        <CircularProgress /> :
+        null
+      }
     </Box>
   );
 };

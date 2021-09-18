@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { CircularProgress } from '@mui/material'
 
 interface LoadingProps {
   isLoading: boolean,
@@ -15,10 +14,6 @@ export const LoadingProvider:React.FC<LoadingProviderProps> = ({ children }) => 
 
   return (
     <LoadingContext.Provider value={{ isLoading, setLoading }}>
-      {isLoading ?
-        <CircularProgress /> :
-        null
-      }
       {children}
     </LoadingContext.Provider>
   )
