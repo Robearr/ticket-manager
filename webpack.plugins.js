@@ -7,8 +7,8 @@ module.exports = [
   new CopyWebpackPlugin({
     patterns: [
       {
-        from: resolve(__dirname, 'src/frontend/assets/'),
-        to: resolve(__dirname, '.webpack/renderer/assets/')
+        from: resolve(__dirname, 'src/frontend/'),
+        to: resolve(__dirname, '.webpack/renderer/')
       },
     ]
   })

@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, session } from 'electron';
+import path from 'path';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
@@ -25,7 +26,9 @@ const createWindow = (): void => {
         responseHeaders: details.responseHeaders,
       })
     },
-  )
+  );
+
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/youtrack`), { allowFileAccess: true });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.webContents.openDevTools();

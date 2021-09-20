@@ -1,0 +1,13 @@
+{
+  "name": "Youtracker",
+  "description": "Tracks tickets in Youtrack",
+  "version": "1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["https://youtrack.dbx.hu/*"],
+      "all_frames": true,
+      "js": ["script.js"]
+    }
+  ]
+}

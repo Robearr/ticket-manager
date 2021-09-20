@@ -22,7 +22,11 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
 
   return (
     <Box sx={{width: '100vw', height: '97vh', pr: 2}} style={isLoading ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : {}}>
-      <iframe src={siteMap[siteName]} onLoad={() => setLoading(false)} style={{ width: '100%', height: '100%', display: isLoading ? 'none' : 'block' }}></iframe>
+      <iframe
+        src={siteMap[siteName]}
+        onLoad={() => setLoading(false)}
+        style={{ width: '100%', height: '100%', display: isLoading ? 'none' : 'block' }}
+      />
       {isLoading ?
         <CircularProgress /> :
         null
