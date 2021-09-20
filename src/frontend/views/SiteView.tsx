@@ -26,6 +26,7 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
       if (evt.data && typeof evt.data === 'string') {
         const parsedMessage: Ticket = JSON.parse(evt.data);
 
+        // @ts-ignore
         window.electron.notificationApi.sendNotification(parsedMessage);
         console.log('sent');
       }
