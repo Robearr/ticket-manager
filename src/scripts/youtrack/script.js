@@ -2,7 +2,10 @@ const stage = document.querySelector('[title^="Stage: "]');
 stage.addEventListener('click', () => {
 
   setTimeout(() => {
-    ['Develop', 'Review', 'Functional test'].forEach(
+
+    const doneStages = ['Develop Done', 'Review Done', 'Waiting for Functional test', 'Waiting for Packaging', 'Done (Released)'];
+
+    ['Develop', 'Review', 'Functional test', ...doneStages].forEach(
       (stage) => {
         document.querySelector(`[title="${stage}"]`).addEventListener('click', () => {
           const ticketNumber = document.querySelector('.issueId').innerText;
@@ -10,7 +13,8 @@ stage.addEventListener('click', () => {
           parent.postMessage(JSON.stringify({
             date: new Date(),
             ticketNumber,
-            ticketTitle
+            ticketTitle,
+            isDone: doneStages.includes(stage)
           }), '*');
         });
       }

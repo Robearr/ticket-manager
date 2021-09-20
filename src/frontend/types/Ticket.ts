@@ -3,4 +3,6 @@ export type Ticket = {
   ticketNumber: string
   ticketTitle: string
   siteName?: string
+  isDone?: boolean
+  hours?: number
 };

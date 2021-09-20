@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { app, BrowserWindow, ipcMain, Notification, session } from 'electron';
-import { writeFileSync } from 'original-fs';
+import { existsSync, readFileSync, writeFileSync } from 'original-fs';
 import path from 'path';
 import { Ticket } from './frontend/types/Ticket';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -39,10 +39,25 @@ const createWindow = (): void => {
 
   ipcMain.on('notify', (_, message: Ticket) => {
     console.log('got', message);
+    const today = dayjs().format('YYYYMMDD');
 
-    const text = `${message.siteName}|${message.date}|${message.ticketNumber}-${message.ticketTitle}`;
+    if (!existsSync(`saves/temp${today}.json`)) {
+      writeFileSync(`saves/temp${today}.json`, '[]');
+    }
 
-    writeFileSync(`saves/temp${dayjs().format('YYYYMMDD')}.txt`, text);
+    const savedData: Ticket[] = JSON.parse(readFileSync(`saves/temp${today}.json`, 'utf-8'));
+    const newTicketIndex = savedData.findIndex(
+      (ticket: Ticket) => ticket.ticketNumber === message.ticketNumber
+    );
+
+    if (newTicketIndex !== -1 && !savedData[newTicketIndex].isDone && message.isDone) {
+      savedData[newTicketIndex].hours = Math.ceil(dayjs().diff(dayjs(savedData[newTicketIndex].date), 'minutes') / 60.0)
+      savedData[newTicketIndex].isDone = true;
+    } else {
+      savedData.push(message);
+    }
+
+    writeFileSync(`saves/temp${today}.json`, JSON.stringify(savedData));
   });
 
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/youtrack`), { allowFileAccess: true });
