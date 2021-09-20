@@ -51,7 +51,7 @@ const createWindow = (): void => {
     );
 
     if (newTicketIndex !== -1 && !savedData[newTicketIndex].isDone && message.isDone) {
-      savedData[newTicketIndex].hours = Math.ceil(dayjs().diff(dayjs(savedData[newTicketIndex].date), 'minutes') / 60.0)
+      savedData[newTicketIndex].hours = Math.ceil(dayjs().diff(dayjs(savedData[newTicketIndex].startTime), 'minutes') / 60.0)
       savedData[newTicketIndex].isDone = true;
     } else {
       savedData.push(message);

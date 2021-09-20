@@ -11,7 +11,7 @@ stage.addEventListener('click', () => {
           const ticketNumber = document.querySelector('.issueId').innerText;
           const ticketTitle = document.querySelector('.issue-summary').innerText;
           parent.postMessage(JSON.stringify({
-            date: new Date(),
+            startTime: new Date(),
             ticketNumber,
             ticketTitle,
             isDone: doneStages.includes(stage)

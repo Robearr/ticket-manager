@@ -1,5 +1,5 @@
 export type Ticket = {
-  date: Date
+  startTime: Date
   ticketNumber: string
   ticketTitle: string
   siteName?: string
