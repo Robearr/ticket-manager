@@ -5,7 +5,7 @@
   "manifest_version": 3,
   "content_scripts": [
     {
-      "matches": ["https://youtrack.dbx.hu/*"],
+      "matches": ["https://youtrack.dbx.hu/issue/*"],
       "all_frames": true,
       "js": ["script.js"]
     }

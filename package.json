@@ -52,7 +52,10 @@
                 {
                   "html": "./src/index.html",
                   "js": "./src/renderer.ts",
-                  "name": "main_window"
+                  "name": "main_window",
+                  "preload": {
+                    "js": "./src/preload.ts"
+                  }
                 }
               ]
             }
@@ -88,6 +91,7 @@
     "@mui/material": "^5.0.0",
     "@types/react-router": "^5.1.16",
     "@types/react-router-dom": "^5.1.9",
+    "dayjs": "^1.10.7",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
