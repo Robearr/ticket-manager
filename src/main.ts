@@ -1,5 +1,8 @@
+import dayjs from 'dayjs';
 import { app, BrowserWindow, ipcMain, Notification, session } from 'electron';
+import { writeFileSync } from 'original-fs';
 import path from 'path';
+import { Ticket } from './frontend/types/Ticket';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: any;
 
@@ -34,9 +37,12 @@ const createWindow = (): void => {
     },
   );
 
-  ipcMain.on('notify', (_, message) => {
-    new Notification({ title: 'Notification', body: message }).show();
-    console.log('got');
+  ipcMain.on('notify', (_, message: Ticket) => {
+    console.log('got', message);
+
+    const text = `${message.siteName}|${message.date}|${message.ticketNumber}-${message.ticketTitle}`;
+
+    writeFileSync(`saves/temp${dayjs().format('YYYYMMDD')}.txt`, text);
   });
 
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/youtrack`), { allowFileAccess: true });
