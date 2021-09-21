@@ -60,6 +60,8 @@ const createWindow = (): void => {
     writeFileSync(`saves/temp${today}.json`, JSON.stringify(savedData));
   });
 
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/arpy-enhance`), { allowFileAccess: true });
+
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/youtrack`), { allowFileAccess: true });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);

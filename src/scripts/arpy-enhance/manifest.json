@@ -1,0 +1,14 @@
+{
+  "name": "ArpyEnhance",
+  "description": "enhances Arpy",
+  "version": "0.8",
+  "author": "Emoryy",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["http://arpy.dbx.hu/timelog*"],
+      "all_frames": true,
+      "js": ["script.js"]
+    }
+  ]
+}
