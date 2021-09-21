@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { app, BrowserWindow, ipcMain, Notification, session } from 'electron';
+import { app, BrowserWindow, ipcMain, session } from 'electron';
 import { existsSync, readFileSync, writeFileSync } from 'original-fs';
 import path from 'path';
 import { Ticket } from './frontend/types/Ticket';
@@ -37,7 +37,7 @@ const createWindow = (): void => {
     },
   );
 
-  ipcMain.on('notify', (_, message: Ticket) => {
+  ipcMain.on('save-ticket', (_, message: Ticket) => {
     console.log('got', message);
     const today = dayjs().format('YYYYMMDD');
 
@@ -63,6 +63,7 @@ const createWindow = (): void => {
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/arpy-enhance`), { allowFileAccess: true });
 
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/youtrack`), { allowFileAccess: true });
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/arpy`), { allowFileAccess: true });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.webContents.openDevTools();

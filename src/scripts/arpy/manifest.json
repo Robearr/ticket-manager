@@ -1,0 +1,13 @@
+{
+  "name": "Arpy filler",
+  "description": "Fills Arpy",
+  "version": "1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["http://arpy.dbx.hu/timelog*"],
+      "all_frames": true,
+      "js": ["script.js"]
+    }
+  ]
+}

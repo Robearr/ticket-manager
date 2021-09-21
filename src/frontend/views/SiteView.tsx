@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { LoadingContext } from "../providers/LoadingProvider";
 import { Ticket } from "../types/Ticket";
@@ -14,6 +14,7 @@ interface SiteViewParams {
 export const SiteView: React.FC<SiteViewProps> = ({}) => {
   const { isLoading, setLoading } = useContext(LoadingContext);
   const { siteName } = useParams<SiteViewParams>();
+  const frameRef = useRef<HTMLIFrameElement>(null);
 
   const siteMap: Record<string, string> = {
     arpy: 'http://arpy.dbx.hu/',
@@ -24,11 +25,14 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
   useEffect(() => {
     window.addEventListener('message', (evt: MessageEvent) => {
       if (evt.data && typeof evt.data === 'string') {
-        const parsedMessage: Ticket = JSON.parse(evt.data);
-
-        // @ts-ignore
-        window.electron.notificationApi.sendNotification({ ...parsedMessage, siteName });
-        console.log('sent');
+        if (siteName === 'youtrack') {
+          const parsedMessage: Ticket = JSON.parse(evt.data);
+          // @ts-ignore
+          window.electron.notificationApi.saveTicket(parsedMessage);
+        } else if (siteName === 'arpy') {
+          // @ts-ignore
+          frameRef.current?.contentWindow?.postMessage(window.electron.notificationApi.getWork(JSON.parse(evt.data).date), '*');
+        }
       }
     });
   }, []);
@@ -38,6 +42,7 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
       <iframe
         src={siteMap[siteName]}
         onLoad={() => setLoading(false)}
+        ref={frameRef}
         style={{ width: '100%', height: '100%', display: isLoading ? 'none' : 'block' }}
       />
       {isLoading ?
