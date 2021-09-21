@@ -88,4 +88,5 @@ typings/
 # Electron-Forge
 out/
 
-saves/
+saves/*
+!saves/.gitkeep
