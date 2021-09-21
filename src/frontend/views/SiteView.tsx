@@ -35,7 +35,7 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
         }
       }
     });
-  }, []);
+  }, [siteName]);
 
   return (
     <Box sx={{width: '100vw', height: '97vh', pr: 2}} style={isLoading ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : {}}>
