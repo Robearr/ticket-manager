@@ -24,10 +24,12 @@ const styles: Record<string, CSSProperties> = {
     color: 'black',
     left: `${SIDEBAR_WIDTH_PERCENTAGE}%`,
     height: `${APPBAR_HEIGHT_PERCENTAGE}%`,
+    zIndex: 0
   },
   toolbarStyle: {
     alignItems: 'flex-start',
     display: 'flex',
-    paddingTop: '0.5%'
+    paddingTop: '0.5%',
+    zIndex: 0
   }
 };
