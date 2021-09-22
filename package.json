@@ -2,7 +2,7 @@
   "name": "ticket-manager",
   "productName": "ticket-manager",
   "version": "1.0.0",
-  "description": "",
+  "description": "Manages tickets for Arpy with Youtrack and Redmine",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",

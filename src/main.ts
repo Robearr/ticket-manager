@@ -21,7 +21,8 @@ const createWindow = (): void => {
       nodeIntegration: false,
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
-    }
+    },
+    icon: path.join(app.getAppPath(), 'src/frontend/assets/images/arpy.png')
   });
 
   mainWindow.webContents.session.webRequest.onHeadersReceived(
