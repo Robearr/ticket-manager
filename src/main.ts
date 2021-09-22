@@ -3,6 +3,7 @@ import { app, BrowserWindow, ipcMain, session } from 'electron';
 import { existsSync, readFileSync, writeFileSync } from 'original-fs';
 import path from 'path';
 import { Ticket } from './frontend/types/Ticket';
+
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: any;
 
@@ -58,6 +59,14 @@ const createWindow = (): void => {
     }
 
     writeFileSync(`saves/temp${today}.json`, JSON.stringify(savedData));
+  });
+
+  ipcMain.on('handle-history-event', (_, direction: string) => {
+    if (direction === 'back') {
+      mainWindow.webContents.goBack();
+    } else if (direction === 'forward') {
+      mainWindow.webContents.goForward();
+    }
   });
 
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/arpy-enhance`), { allowFileAccess: true });

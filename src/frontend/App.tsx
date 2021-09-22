@@ -1,7 +1,8 @@
 import { Box } from '@mui/system';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { LoadingProvider } from './providers/LoadingProvider';
-import { SidebarView } from './views/SidebarView';
+import { History } from './ui/History';
+import { Sidebar } from './ui/Sidebar';
 import { SiteView } from './views/SiteView';
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <HashRouter>
       <LoadingProvider>
         <Box sx={{ display: 'flex' }}>
-          <SidebarView />
+          <History />
+          <Sidebar />
           <Switch>
             <Route path='/site/:siteName' component={SiteView} />
             <Route exact path='/'>

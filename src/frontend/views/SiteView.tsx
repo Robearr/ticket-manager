@@ -1,7 +1,8 @@
 import { CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, SxProps } from "@mui/system";
 import { useContext, useEffect, useRef } from "react";
 import { useParams } from "react-router";
+import { APPBAR_HEIGHT_PERCENTAGE, SIDEBAR_WIDTH_PERCENTAGE } from "../constants";
 import { LoadingContext } from "../providers/LoadingProvider";
 import { Ticket } from "../types/Ticket";
 
@@ -38,7 +39,7 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
   }, [siteName]);
 
   return (
-    <Box sx={{width: '100vw', height: '97vh', pr: 2}} style={isLoading ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : {}}>
+    <Box sx={styleOverrides.boxStyle} style={isLoading ? { display: 'flex', justifyContent: 'center', alignItems: 'center' } : {}}>
       <iframe
         src={siteMap[siteName]}
         onLoad={() => setLoading(false)}
@@ -53,3 +54,13 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
   );
 };
 
+const styleOverrides: Record<string, SxProps> = {
+  boxStyle: {
+    width: `calc(97vw - ${SIDEBAR_WIDTH_PERCENTAGE}%)`,
+    height: '95vh',
+    pr: 2,
+    position: 'absolute',
+    top: `${APPBAR_HEIGHT_PERCENTAGE + 1}%`,
+    left: `${SIDEBAR_WIDTH_PERCENTAGE + 1}%`
+  }
+};

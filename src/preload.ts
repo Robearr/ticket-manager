@@ -15,6 +15,9 @@ contextBridge.exposeInMainWorld('electron', {
       } else {
         console.error('NEM LETEZIK FILE');
       }
+    },
+    handleHistoryEvent(direction: string) {
+      ipcRenderer.send('handle-history-event', direction);
     }
   }
 })

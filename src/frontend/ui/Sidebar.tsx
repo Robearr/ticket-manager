@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { SIDEBAR_WIDTH_PERCENTAGE } from "../constants";
 import { LoadingContext } from "../providers/LoadingProvider";
 
-interface SidebarViewProps {}
+interface SidebarProps {}
 
-export const SidebarView: React.FC<SidebarViewProps> = () => {
+export const Sidebar: React.FC<SidebarProps> = () => {
   const { setLoading } = useContext(LoadingContext);
   const sites: Record<string, string> = {
     arpy: 'Arpy',
