@@ -1,0 +1,13 @@
+{
+  "name": "Redmine tracker",
+  "description": "Tracks tickets in Redmine",
+  "version": "1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["https://redmine.dbx.hu/issues/*"],
+      "all_frames": true,
+      "js": ["script.js"]
+    }
+  ]
+}

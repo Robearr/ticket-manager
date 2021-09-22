@@ -33,7 +33,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                   <img
                     src={`assets/images/${siteName}.png`}
                     title={sites[siteName]}
-                    style={{ width: '5vw', height: '5vh' }}
+                    style={{ width: '4vw', height: '4vh' }}
                   />
                 </Link>
             </ListItem>

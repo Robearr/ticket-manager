@@ -26,7 +26,7 @@ export const SiteView: React.FC<SiteViewProps> = ({}) => {
   useEffect(() => {
     window.addEventListener('message', (evt: MessageEvent) => {
       if (evt.data && typeof evt.data === 'string') {
-        if (siteName === 'youtrack') {
+        if (siteName === 'youtrack' || siteName === 'redmine') {
           const parsedMessage: Ticket = JSON.parse(evt.data);
           // @ts-ignore
           window.electron.notificationApi.saveTicket(parsedMessage);

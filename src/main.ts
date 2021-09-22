@@ -74,6 +74,7 @@ const createWindow = (): void => {
 
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/youtrack`), { allowFileAccess: true });
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/arpy`), { allowFileAccess: true });
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/redmine`), { allowFileAccess: true });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.webContents.openDevTools();
