@@ -19,5 +19,13 @@ module.exports = [
         to: resolve(__dirname, '.webpack/renderer/main_window/assets')
       },
     ]
+  }),
+  new CopyWebpackPlugin({
+    patterns: [
+      {
+        from: resolve(__dirname, 'src/scripts'),
+        to: resolve(__dirname, '.webpack/renderer/main_window/src/scripts')
+      },
+    ]
   })
 ];

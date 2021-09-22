@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { app, BrowserWindow, ipcMain, session } from 'electron';
-import { existsSync, readFileSync, writeFileSync } from 'original-fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'original-fs';
 import path from 'path';
 import { Ticket } from './frontend/types/Ticket';
 
@@ -14,6 +14,11 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 const createWindow = (): void => {
+
+  if (!existsSync('./saves')) {
+    mkdirSync('./saves');
+  }
+
   const mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
@@ -22,7 +27,7 @@ const createWindow = (): void => {
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
     },
-    icon: path.join(app.getAppPath(), 'src/frontend/assets/images/arpy.png')
+    icon: path.join(app.getAppPath(), '.webpack/renderer/main_window/assets/images/arpy.png')
   });
 
   mainWindow.webContents.session.webRequest.onHeadersReceived(
@@ -46,7 +51,7 @@ const createWindow = (): void => {
       writeFileSync(`saves/temp${today}.json`, '[]');
     }
 
-    const savedData: Ticket[] = JSON.parse(readFileSync(`saves/temp${today}.json`, 'utf-8'));
+    const savedData: Ticket[] = JSON.parse(readFileSync(`./saves/temp${today}.json`, 'utf-8'));
     const newTicketIndex = savedData.findIndex(
       (ticket: Ticket) => ticket.ticketNumber === message.ticketNumber
     );
@@ -69,11 +74,11 @@ const createWindow = (): void => {
     }
   });
 
-  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/arpy-enhance`), { allowFileAccess: true });
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `.webpack/renderer/main_window/src/scripts/arpy-enhance`), { allowFileAccess: true });
 
-  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/youtrack`), { allowFileAccess: true });
-  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/arpy`), { allowFileAccess: true });
-  session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/redmine`), { allowFileAccess: true });
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `.webpack/renderer/main_window/src/scripts/youtrack`), { allowFileAccess: true });
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `.webpack/renderer/main_window/src/scripts/arpy`), { allowFileAccess: true });
+  session.defaultSession.loadExtension(path.join(app.getAppPath(), `.webpack/renderer/main_window/src/scripts/redmine`), { allowFileAccess: true });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 };
