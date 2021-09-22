@@ -15,12 +15,6 @@ stage.addEventListener('click', () => {
             isDone: doneStages.includes(stage)
           }), '*');
 
-          console.log('sent', {
-            startTime: new Date(),
-            ticketNumber,
-            ticketTitle,
-            isDone: doneStages.includes(stage)
-          });
         });
       }
     );

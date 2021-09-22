@@ -40,7 +40,6 @@ const createWindow = (): void => {
   );
 
   ipcMain.on('save-ticket', (_, message: Ticket) => {
-    console.log('got', message);
     const today = dayjs().format('YYYYMMDD');
 
     if (!existsSync(`saves/temp${today}.json`)) {
@@ -77,7 +76,6 @@ const createWindow = (): void => {
   session.defaultSession.loadExtension(path.join(app.getAppPath(), `src/scripts/redmine`), { allowFileAccess: true });
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  mainWindow.webContents.openDevTools();
 };
 
 app.on('ready', createWindow);
