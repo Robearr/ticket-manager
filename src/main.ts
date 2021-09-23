@@ -56,9 +56,11 @@ const createWindow = (): void => {
       (ticket: Ticket) => ticket.ticketNumber === message.ticketNumber
     );
 
-    if (newTicketIndex !== -1 && !savedData[newTicketIndex].isDone && message.isDone) {
-      savedData[newTicketIndex].hours = Math.ceil(dayjs().diff(dayjs(savedData[newTicketIndex].startTime), 'minutes') / 60.0)
-      savedData[newTicketIndex].isDone = true;
+    if (newTicketIndex !== -1) {
+      if (!savedData[newTicketIndex].isDone && message.isDone) {
+        savedData[newTicketIndex].hours = Math.ceil(dayjs().diff(dayjs(savedData[newTicketIndex].startTime), 'minutes') / 60.0)
+        savedData[newTicketIndex].isDone = true;
+      }
     } else {
       savedData.push(message);
     }
